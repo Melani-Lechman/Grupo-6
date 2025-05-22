@@ -1,7 +1,11 @@
+// Esta función recibe un array de encuestas y devuelve las preguntas ordenadas por cantidad de respuestas (de mayor a menor)
 function preguntasMasRespondidas(encuestas) {
-  const ordenadas = [...encuestas].sort((a, b) => b.respuesta.length - a.respuesta.length);
-  return ordenadas.map(e => e.pregunta);
+  return encuestas
+    // Ordenamos las encuestas según la cantidad de respuestas (de mayor a menor)
+    .sort((a, b) => b.respuesta.length - a.respuesta.length)
+    // Después de ordenar, usamos map para devolver solo el texto de la pregunta
+    .map(e => e.pregunta);
 }
 
-module.exports = {preguntasMasRespondidas};
-
+// Exportamos la función para poder usarla en otros archivos
+module.exports = { preguntasMasRespondidas };

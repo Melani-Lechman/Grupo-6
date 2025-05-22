@@ -1,35 +1,39 @@
+// Esta función agrega una nueva encuesta a la lista, verificando que todas las opciones estén completas
 function agregarEncuesta(encuestas) {
-  const prompt = require("prompt-sync")();
+  const prompt = require("prompt-sync")(); // Para ingresar datos por consola
 
-  const titulo = prompt("Título de la encuesta: ");
-  const pregunta = prompt("Pregunta: ");
+  const pregunta = prompt("Pregunta de la encuesta: ");
+  const cantidad = Number(prompt("¿Cuántas opciones? (mínimo 2): "));
 
-  const cantidad = Number(prompt("¿Cuántas opciones?: "));
+  // Si hay menos de 2 opciones, no se permite continuar
   if (cantidad < 2) {
-    console.log("Mínimo 2 opciones.");
+    console.log("Debe haber al menos 2 opciones.");
     return;
   }
 
+  // Pedimos al usuario las opciones
   const opciones = [];
   for (let i = 0; i < cantidad; i++) {
-    const op = prompt("Opción " + (i + 1) + ": ");
-    opciones.push(op);
+    const opcion = prompt(`Opción ${i + 1}: `);
+    opciones.push(opcion);
   }
 
-  if (!opciones.every(op => op !== "")) {
+  // Verificamos que ninguna opción esté vacía
+  if (!opciones.every(op => op.trim() !== "")) {
     console.log("No se permiten opciones vacías.");
     return;
   }
 
-  const encuesta = {
-    titulo: titulo,
+  // Creamos la encuesta y la agregamos al array
+  encuestas.push({
     pregunta: pregunta,
     opciones: opciones,
-    respuestas: Array(cantidad).fill(0),
-  };
+    respuesta: [] // Acá se guardarán las respuestas que dé el usuario
+  });
 
-  encuestas.push(encuesta);
-  console.log("Encuesta agregada.");
+  console.log("Encuesta agregada exitosamente.");
 }
 
+// Exportamos la función para poder usarla en otros archivos
 module.exports = { agregarEncuesta };
+
